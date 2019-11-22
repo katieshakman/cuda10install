@@ -12,7 +12,7 @@ apt-get update && apt-get install -y --no-install-recommends ca-certificates apt
     curl -s http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub | apt-key add - && \
     echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list && \
     apt-get update && \
-    apt-get install cuda-drivers=418.87.01-1 nvidia-418_418.87.01-0ubuntu1 nvidia-418-dev_418.87.01-0ubuntu1 libcuda1-418_418.87.01-0ubuntu1 nvidia-opencl-icd-418_418.87.01-0ubuntu1 cuda=10.1* --yes --no-install-recommends --no-install-suggests
+    apt-get install cuda-drivers=418.87.01-1 nvidia-418=418.87.01-0ubuntu1 nvidia-418-dev=418.87.01-0ubuntu1 libcuda1-418=418.87.01-0ubuntu1 nvidia-opencl-icd-418=418_418.87.01-0ubuntu1 cuda=10.1* --yes --no-install-recommends --no-install-suggests
      
 echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
   
