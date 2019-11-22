@@ -1,0 +1,29 @@
+echo 'DPkg::options { "--force-confdef"; "--force-confnew"; }' >> /etc/apt/apt.conf.d/local
+   
+# Remove 
+apt-get update && \
+    apt-get install -y update-manager-core && \
+    apt-get install -y apt dpkg && \
+    apt-mark unhold nvidia* cuda* && \
+    apt-get purge -y --force-yes nvidia-* cuda*
+   
+# Install 
+apt-get update && apt-get install -y --no-install-recommends ca-certificates apt-transport-https gnupg-curl && \
+    curl -s http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub | apt-key add - && \
+    echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list && \
+    apt-get update && \
+    apt-get install cuda-drivers=410.104-1 nvidia-410=410.104-0ubuntu1 nvidia-410-dev=410.104-0ubuntu1 libcuda1-410=410.104-0ubuntu1 nvidia-opencl-icd-410=410.104-0ubuntu1 cuda=10.0* --yes --no-install-recommends --no-install-suggests
+     
+echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
+  
+apt-mark hold nvidia* cuda*
+  
+# Include if needed
+export CUDNN_VERSION=7.4.2.24
+   
+apt-get update && apt-get install -y --no-install-recommends \
+            libcudnn7=$CUDNN_VERSION-1+cuda10.0 && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /etc/apt/apt.conf.d/local
+   
+pip install tensorflow-gpu && pip install -U keras
